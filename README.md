@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 # Crypto-Weather-Nexus
+=======
+>>>>>>> f71a711 (Initial commit: Adding Crypto-Weather-Nexus project)
 # Crypto Weather Nexus
 
 A modern web application that combines real-time cryptocurrency data with weather information, providing a unified dashboard for monitoring both markets and weather conditions.
@@ -122,8 +125,16 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
+<<<<<<< HEAD
 For support, please open an issue in the GitHub repository or contact [vinayak.vallakati@gmail.com]
 
 ---
 
 Made with ❤️ by [Vinayak Vallakati]
+=======
+For support, please open an issue in the GitHub repository or contact [your-email@example.com]
+
+---
+
+Made with ❤️ by [Your Name]
+>>>>>>> f71a711 (Initial commit: Adding Crypto-Weather-Nexus project)
