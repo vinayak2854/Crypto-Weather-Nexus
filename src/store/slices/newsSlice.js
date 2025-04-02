@@ -6,11 +6,24 @@ const NEWS_API_URL = "https://newsapi.org/v2";
 
 export const fetchCryptoNews = createAsyncThunk(
   "news/fetchCryptoNews",
-  async () => {
-    const response = await axios.get(
-      `${NEWS_API_URL}/everything?q=cryptocurrency&apiKey=${NEWS_API_KEY}&language=en&pageSize=5`
-    );
-    return response.data.articles;
+  async (_, { rejectWithValue }) => {
+    try {
+      if (!NEWS_API_KEY) {
+        throw new Error("News API key is not configured");
+      }
+
+      const response = await axios.get(
+        `${NEWS_API_URL}/everything?q=cryptocurrency&apiKey=${NEWS_API_KEY}&language=en&pageSize=5`
+      );
+
+      if (!response.data || !response.data.articles) {
+        throw new Error("Invalid response format from news API");
+      }
+
+      return response.data.articles;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to fetch news data");
+    }
   }
 );
 
