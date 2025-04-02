@@ -23,7 +23,23 @@ export default function NewsSection() {
     return (
       <div className="card">
         <h2 className="card-title">Latest News</h2>
-        <div className="text-red-500">Error loading news data</div>
+        <div className="text-red-500 space-y-2">
+          <p>Error loading news data:</p>
+          <p className="text-sm">{error}</p>
+          <p className="text-xs text-gray-500">
+            Please check if the API key is properly configured in your
+            environment variables.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!articles || articles.length === 0) {
+    return (
+      <div className="card">
+        <h2 className="card-title">Latest News</h2>
+        <div className="text-gray-500">No news articles available.</div>
       </div>
     );
   }
@@ -46,6 +62,9 @@ export default function NewsSection() {
                   src={article.urlToImage}
                   alt={article.title}
                   className="w-20 h-20 object-cover rounded"
+                  onError={(e) => {
+                    e.target.src = "/placeholder-image.jpg";
+                  }}
                 />
               )}
               <div className="flex-1">
