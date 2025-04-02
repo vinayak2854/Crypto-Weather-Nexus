@@ -13,17 +13,20 @@ export async function GET() {
     }
 
     const response = await fetch(
-      `${NEWS_API_URL}/everything?q=cryptocurrency&apiKey=${NEWS_API_KEY}&language=en&pageSize=5`,
+      `${NEWS_API_URL}/everything?q=cryptocurrency&apiKey=${NEWS_API_KEY}&language=en&pageSize=5&sortBy=publishedAt`,
       {
         headers: {
           Accept: "application/json",
           "User-Agent": "Mozilla/5.0",
+          "X-Api-Key": NEWS_API_KEY,
         },
+        next: { revalidate: 3600 }, // Cache for 1 hour
       }
     );
 
     if (!response.ok) {
       const errorData = await response.json();
+      console.error("News API Error:", errorData);
       return NextResponse.json(
         { error: errorData.message || "Failed to fetch news" },
         { status: response.status }
