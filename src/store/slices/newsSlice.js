@@ -1,32 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const NEWS_API_KEY = process.env.NEXT_PUBLIC_NEWS_API_KEY;
-const NEWS_API_URL = "https://newsapi.org/v2";
-
 export const fetchCryptoNews = createAsyncThunk(
   "news/fetchCryptoNews",
   async (_, { rejectWithValue }) => {
     try {
-      if (!NEWS_API_KEY) {
-        console.error("News API key is missing");
-        throw new Error("News API key is not configured");
-      }
-
-      console.log(
-        "Fetching news with API key:",
-        NEWS_API_KEY.substring(0, 5) + "..."
-      );
-
-      const response = await axios.get(
-        `${NEWS_API_URL}/everything?q=cryptocurrency&apiKey=${NEWS_API_KEY}&language=en&pageSize=5`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-          withCredentials: false,
-        }
-      );
+      const response = await axios.get("/api/news");
 
       if (!response.data) {
         console.error("No data received from API");
@@ -46,7 +25,7 @@ export const fetchCryptoNews = createAsyncThunk(
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         console.error("API Error Response:", error.response.data);
-        return rejectWithValue(error.response.data.message || "API Error");
+        return rejectWithValue(error.response.data.error || "API Error");
       } else if (error.request) {
         // The request was made but no response was received
         console.error("No response received:", error.request);
